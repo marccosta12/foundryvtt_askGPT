@@ -83,8 +83,9 @@ async function waitForRunCompletion(apiKey, threadId, runId, timeoutSeconds = 45
 	];
 
 	let attempt = 0;
+	let runCompleted = false;
 
-	while (true) {
+	while (!runCompleted) {
 		try {
 			// Check timeout
 			const elapsed = (Date.now() - startTime) / 1000;
@@ -105,6 +106,7 @@ async function waitForRunCompletion(apiKey, threadId, runId, timeoutSeconds = 45
 
 			if (data.status === 'completed') {
 				console.debug(`${moduleName} | Run completed successfully in ${elapsed.toFixed(1)}s`);
+				runCompleted = true;
 				return data;
 			}
 
