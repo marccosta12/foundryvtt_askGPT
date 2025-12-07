@@ -7,7 +7,7 @@ Bring AI to your Foundry VTT table with powerful OpenAI integration. Whether you
 ## Quick Start
 
 1. **Get your API key** from [OpenAI](https://platform.openai.com/account/api-keys)
-2. **Install the module** using: `https://github.com/marccosta12/foundryvtt_askGPT/releases/latest/download/module.json`
+2. **Install the module** using: `https://github.com/marccosta12/foundryvtt_SmartChatAI/releases/latest/download/module.json`
 3. **Configure settings** with your API key and preferred AI engine
 4. **Start asking!** Use `/?` or `/w gpt` in chat
 
