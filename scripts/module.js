@@ -1,9 +1,7 @@
 import { registerSettings, moduleName } from './settings.js';
 import { getGptReplyAsHtml } from './gpt-api.js';
 
-// Track users who have already seen the welcome message in this session
-// Resets when Foundry is closed and reopened
-const usersWhoSawWelcome = new Set();
+const WELCOME_STORAGE_KEY = 'smartchatai-welcome-shown';
 
 Hooks.once('init', () => {
 	console.log(`${moduleName} | Initialization`);
@@ -11,12 +9,16 @@ Hooks.once('init', () => {
 });
 
 Hooks.on('ready', () => {
-	// Show welcome message once per user per session
+	// Show welcome message once per session (resets when browser/tab is closed)
 	const userId = game.user.id;
+	const storageKey = `${WELCOME_STORAGE_KEY}-${userId}`;
 	
-	if (!usersWhoSawWelcome.has(userId)) {
+	// Check if this user has already seen the welcome message in this session
+	const hasSeenWelcome = sessionStorage.getItem(storageKey);
+	
+	if (!hasSeenWelcome) {
 		showWelcomeMessage();
-		usersWhoSawWelcome.add(userId);
+		sessionStorage.setItem(storageKey, 'true');
 		console.log(`${moduleName} | Welcome message shown to user ${game.user.name}`);
 	}
 });
